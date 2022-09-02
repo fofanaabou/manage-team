@@ -1,0 +1,133 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="2022-01" author="AFO2022">
+        <sql>
+            -- Table: public.project
+
+-- DROP TABLE IF EXISTS public.project;
+
+            CREATE TABLE IF NOT EXISTS public.project
+            (
+                id bigserial NOT NULL,
+                name character varying COLLATE pg_catalog."default",
+                description character varying COLLATE pg_catalog."default",
+                CONSTRAINT project_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.project OWNER to innovation_project;
+
+            --
+-- Name: status; Type: TABLE; Schema: public; Owner: postgres
+--
+
+            CREATE TABLE public.status (
+                                           id bigserial NOT NULL,
+                                           libelle character varying,
+                                           CONSTRAINT status_pkey PRIMARY KEY (id)
+            )
+                TABLESPACE pg_default;
+
+            ALTER TABLE public.status OWNER TO innovation_project;
+
+
+-- Table: public.priority
+
+            CREATE TABLE IF NOT EXISTS public.priority
+            (
+                id bigserial NOT NULL,
+                libelle character varying COLLATE pg_catalog."default",
+                CONSTRAINT priority_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.priority OWNER to innovation_project;
+
+
+
+            -- Table: public.estimated_duration
+
+-- DROP TABLE IF EXISTS public.estimated_duration;
+
+            CREATE TABLE IF NOT EXISTS public.estimated_duration
+            (
+                id bigserial NOT NULL,
+                duration character varying COLLATE pg_catalog."default",
+                CONSTRAINT estimated_duration_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.estimated_duration OWNER to innovation_project;
+
+
+
+            -- Table: public.subject
+
+-- DROP TABLE IF EXISTS public.subject;
+
+            CREATE TABLE IF NOT EXISTS public.subject
+            (
+                id bigserial NOT NULL,
+                titre character varying(255) COLLATE pg_catalog."default",
+                description character varying COLLATE pg_catalog."default",
+                projet_id bigint NOT NULL,
+                duration_id bigint,
+                priority_id bigint,
+                status_id bigint,
+                CONSTRAINT subject2_pkey PRIMARY KEY (id),
+                CONSTRAINT fk_subject_duration_id FOREIGN KEY (duration_id)
+                REFERENCES public.estimated_duration (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                NOT VALID,
+                CONSTRAINT fk_subject_priority_id FOREIGN KEY (priority_id)
+                REFERENCES public.priority (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                NOT VALID,
+                CONSTRAINT fk_subject_projet_id FOREIGN KEY (projet_id)
+                REFERENCES public.project (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                NOT VALID,
+                CONSTRAINT fk_subject_status_id FOREIGN KEY (status_id)
+                REFERENCES public.status (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                NOT VALID
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.subject OWNER to innovation_project;
+
+            -- Table: public.profil_eligible
+
+-- DROP TABLE IF EXISTS public.profil_eligible;
+
+            CREATE TABLE IF NOT EXISTS public.profil_eligible
+            (
+                id bigserial NOT NULL,
+                profil_id bigint,
+                subject_id bigint,
+                number_poste integer,
+                CONSTRAINT profil_eligible_pkey PRIMARY KEY (id),
+                CONSTRAINT fk_pe_subject_id FOREIGN KEY (subject_id)
+                REFERENCES public.subject (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.profil_eligible OWNER to innovation_project;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

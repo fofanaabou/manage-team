@@ -1,0 +1,88 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="2022-10" author="AFO2022">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="agence"/>
+                <tableExists tableName="category"/>
+                <tableExists tableName="collaborateur"/>
+                <tableExists tableName="collaborateur_profil"/>
+            </not>
+        </preConditions>
+        <sql>
+
+            CREATE TABLE IF NOT EXISTS public.agence
+            (
+                id bigserial NOT NULL,
+                name character varying COLLATE pg_catalog."default",
+                telephone character varying COLLATE pg_catalog."default",
+                CONSTRAINT agence_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.agence OWNER to innovation_collaborator;
+
+            CREATE TABLE IF NOT EXISTS public.category
+            (
+                id bigserial NOT NULL,
+                libelle character varying COLLATE pg_catalog."default",
+                CONSTRAINT category_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.category OWNER to innovation_collaborator;
+
+
+            CREATE TABLE IF NOT EXISTS public.collaborateur
+            (
+                id bigserial NOT NULL,
+                first_name character varying(255) COLLATE pg_catalog."default",
+                last_name character varying(255) COLLATE pg_catalog."default",
+                email character varying(255) COLLATE pg_catalog."default",
+                telephone character varying(255) COLLATE pg_catalog."default",
+                date_debut_carriere date,
+                cv_url character varying COLLATE pg_catalog."default",
+                agence_id bigint NOT NULL,
+                category_id bigint,
+                parent_id bigint,
+                CONSTRAINT collaborateur_pkey PRIMARY KEY (id),
+                CONSTRAINT fk_colloborateur_agence_id FOREIGN KEY (agence_id)
+                REFERENCES public.agence (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION,
+                CONSTRAINT fk_colloborateur_category_id FOREIGN KEY (category_id)
+                REFERENCES public.category (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.collaborateur OWNER to innovation_collaborator;
+
+
+            CREATE TABLE IF NOT EXISTS public.collaborateur_profil
+            (
+                id bigserial NOT NULL,
+                collaborateur_id bigint NOT NULL,
+                profil_id bigint NOT NULL,
+                annee_exp bigint DEFAULT 0,
+                CONSTRAINT collaborateur_profil_pkey PRIMARY KEY (id),
+                CONSTRAINT fk_colloborateur_profil_collaborateur_id FOREIGN KEY (collaborateur_id)
+                REFERENCES public.collaborateur (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.collaborateur_profil OWNER to innovation_collaborator;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,58 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="2022-01" author="AFO2022">
+        <sql>
+
+            CREATE TABLE IF NOT EXISTS public.mission
+            (
+                id bigserial NOT NULL,
+                collaborateur_id bigint NOT NULL,
+                date_debut date NOT NULL,
+                CONSTRAINT mission_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.mission OWNER to innovation_affectation;
+
+
+
+            CREATE TABLE IF NOT EXISTS public.profil
+            (
+                id bigserial NOT NULL,
+                libelle character varying(255) COLLATE pg_catalog."default" NOT NULL,
+                CONSTRAINT profil_pkey PRIMARY KEY (id)
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.profil OWNER to innovation_affectation;
+
+
+            CREATE TABLE IF NOT EXISTS public.sujet_mission_profil
+            (
+                id bigserial NOT NULL,
+                sujet_id bigint NOT NULL,
+                mission_id bigint NOT NULL,
+                profil_id bigint NOT NULL,
+                CONSTRAINT sujet_mission_profil_pkey PRIMARY KEY (id),
+                CONSTRAINT fk_smp_mission_id FOREIGN KEY (mission_id)
+                REFERENCES public.mission (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION,
+                CONSTRAINT fk_smp_profil_id FOREIGN KEY (profil_id)
+                REFERENCES public.profil (id) MATCH SIMPLE
+                ON UPDATE NO ACTION
+                ON DELETE NO ACTION
+                )
+
+                TABLESPACE pg_default;
+
+            ALTER TABLE IF EXISTS public.sujet_mission_profil OWNER to innovation_affectation;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

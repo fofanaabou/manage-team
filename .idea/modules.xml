@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/affectation/affectation.iml" filepath="$PROJECT_DIR$/affectation/affectation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collaborators/collaborators.iml" filepath="$PROJECT_DIR$/collaborators/collaborators.iml" />
+      <module fileurl="file://$PROJECT_DIR$/discovery-server/discovery-server.iml" filepath="$PROJECT_DIR$/discovery-server/discovery-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/innova-service-api-gateway/innova-service-api-gateway.iml" filepath="$PROJECT_DIR$/innova-service-api-gateway/innova-service-api-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/poc-services-innova.iml" filepath="$PROJECT_DIR$/poc-services-innova.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projects/projects.iml" filepath="$PROJECT_DIR$/projects/projects.iml" />
+    </modules>
+  </component>
+</project>

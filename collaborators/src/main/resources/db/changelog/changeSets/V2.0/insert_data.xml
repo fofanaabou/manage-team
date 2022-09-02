@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="2022-02" author="AFO2022">
+        <sql>
+            INSERT INTO public.agence(id, name)
+            VALUES (1, 'LYON'),
+                   (2, 'PARIS'),
+                   (3, 'MARSEILLE'),
+                   (4, 'BORDEAUX'),
+                   (5, 'LILLE'),
+                   (6, 'NIORT'),
+                   (7, 'RABAT'),
+                   (8,'TOURS'),
+                   (9, 'TOULOUSE'),
+                   (10, 'GENEVE'),
+                   (11, 'LUXEMBOURG'),
+                   (12, 'STRASBOURG');
+
+            INSERT INTO public.category(
+                id, libelle)
+            VALUES (1, 'Salarié'),
+                   (2, 'Alternant'),
+                   (3, 'Stagiaire');
+
+
+            INSERT INTO public.collaborateur(
+                id, first_name, last_name, email, telephone, date_debut_carriere, cv_url, agence_id, category_id, parent_id)
+            VALUES (1, 'Gaspard', 'BOTTARD', 'g.bottard@cat-amania.com', '00 00 00 00 00', '2022-06-20',null, 1, 2, null),
+                   (2, 'Abou', 'FOFANA', 'a.fofana@cat-amania.com', '06 13 11 52 26', '2018-10-29',null, 1, 1, 1);
+
+            INSERT INTO public.collaborateur_profil(
+                collaborateur_id, profil_id, annee_exp)
+            VALUES (2, 10, 3);
+
+
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="2022-02" author="AFO2022">
+        <sql>
+            INSERT INTO public.priority(
+                id, libelle)
+            VALUES (1, 'Forte'),
+                   (2, 'Neutre'),
+                   (3, 'Urgente');
+
+            INSERT INTO public.status(
+                id, libelle)
+            VALUES (1, 'En cours'),
+                   (2, 'Terminé'),
+                   (3, 'Standby'),
+                   (4, 'Ouvert'),
+                   (5, 'Abandonnée');
+
+            INSERT INTO public.estimated_duration(
+                id, duration)
+            VALUES (1, '1 semaine'),
+                   (2, '2 semaines'),
+                   (3, '3 semaines'),
+                   (4, '1 mois');
+
+            INSERT INTO public.project(
+                id, name, description)
+            VALUES (1, 'Moderniser notre prologiciel Arcthus', 'Moderniser notre prologiciel Arcthus'),
+                   (2, 'Plugins Jira Cloud', 'Plugins Jira Cloud'),
+                   (3, 'Nouvelles Application de publications de contenus', 'Nouvelles Application de publications de contenus'),
+                   (4, 'Etudes et POC sur des méta-framework et architectures', 'Etudes et POC sur des méta-framework et architectures'),
+                   (5, 'Espace collaborateur et modernisation de la digital workplace Cat-Amania', 'Espace collaborateur et modernisation de la digital workplace Cat-Amania'),
+                   (6, 'Forge Cat-Amania et nouveaux services associés', 'Forge Cat-Amania et nouveaux services associés'),
+                   (7, 'Fiche 360 - Vision 360° du collaborateur et scoring d\''équipe', 'Fiche 360 - Vision 360° du collaborateur et scoring d\''équipe'),
+                   (8, 'POC MGEN Drools - Programmation via moteur de règles', 'POC MGEN Drools - Programmation via moteur de règles'),
+                   (9, 'Impacts du numérique responsable sur nos méthodes et services', 'Impacts du numérique responsable sur nos méthodes et services'),
+                   (10, 'Outil de pilotage Cat-Amania et prédictivité des risques industriels', 'Outil de pilotage Cat-Amania et prédictivité des risques industriels'),
+                   (11, 'Conception et exploitation du Big Data Cat-Amania', 'Conception et exploitation du Big Data Cat-Amania'),
+                   (12, 'Les outillages et méthodes spécifiques de Cat-Amania', 'Les outillages et méthodes spécifiques de Cat-Amania'),
+                   (13, 'Place et impacts des technologies Low et No code dans le SI', 'Place et impacts des technologies Low et No code dans le SI'),
+                   (14, 'RPA (Robotic Process Automation), vers un "humain augmenté"', 'RPA (Robotic Process Automation), vers un "humain augmenté"'),
+                   (15, 'ChatBot, assistant de la Direction Technique et de Cat-Amania en général', 'ChatBot, assistant de la Direction Technique et de Cat-Amania en général'),
+                   (16, 'Mécénat de compétences', 'Mécénat de compétences'),
+                   (17, 'INNOVA Learnin', 'INNOVA Learnin'),
+                   (18, 'Espace collaborateur et modernisation de la digital workplace Cat-Amania', 'Espace collaborateur et modernisation de la digital workplace Cat-Amania');
+
+
+            INSERT INTO public.subject(
+                id, titre, description, projet_id, duration_id, priority_id, status_id)
+            VALUES (1, 'Etude Coopengo','Etude solution Coopengo (couverture fonctionnelle vs Arthus)', 1, 4, 1, 3),
+                   (2, 'POC Coopengo','Installation de la solution Coog de coopengo', 1, 4, 2, 3),
+                   (3, 'Migration weblogic Tomcat', 'Migration weblogic Tomcat', 1, 4, 2, 3),
+                   (4, 'Etude de faisabilité plug-in  Squash/JIRA','Etude de faisabilité plug-in  Squash/JIRA', 1, 3, 1, 2),
+                   (5,'POC APEX', 'POC APEX (Low code)', 1, 4, 2, 3),
+                   (6, 'POC BI Arthus', 'POC BI Arthus', 1, 4, 2, 3),
+                   (7, 'JIRA dev Node et HTML', 'Dev Node.js + HTML/CSS', 2, 3, 2, 2),
+                   (8, 'JIRA Migration ACE', 'Migration du backend ACE Node.js vers Atlassian Connect SpringBoot (JavaEE)',2,3,2,2),
+                   (9, 'JIRA ScriptRunner', 'ScriptRunner (Groovy)', 2,2,2,3),
+                   (10, 'JIRA nouveau socle', 'Nouveau socle technique Java pour futurs plugins Jira', 2, 4, 2,2),
+                   (11, 'Contenu VR', 'Usage de CMS headless pour publier du contenu exploitable dans une VR (casque de réalité virtuelle)', 3,4,2,4),
+                   (12, 'Capitalisation Jhipster',	'Capitalisation Jhipster (Canotech) avec éventuellement une fiche 360 dans cette technologie',	4, 4,1,3),
+                   (13, 'Etat de l\''art du marché sur les méta-frameworks','Etat de l\''art du marché sur les méta-frameworks',4,3,2,3),
+                   (14, 'POC Hornet version NodeJS	POC', 'Hornet version NodeJS/JS + Retex', 4, 2,1,3),
+                   (15, 'Staffing des collaborateur','Affectation des collaborateurs à un project',7, 4, 2, 1);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

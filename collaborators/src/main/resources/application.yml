@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://db:5432/collaborator
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    show-sql: false
+  application:
+    name: collaborator
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+
+eureka:
+  instance:
+    hostname: collaborator
+  client:
+    service-url:
+      default-zone: http://discovery:8761/eureka/
+
+server:
+  port: 8082

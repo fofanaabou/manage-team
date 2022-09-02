@@ -1,0 +1,68 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES="affectation","collaborator","project"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./databases:/docker-entrypoint-initdb.d
+
+  discovery:
+    hostname: discovery
+    build:
+      context: .
+      dockerfile: ./discovery-server/Dockerfile
+    ports:
+      - "8761:8761"
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./innova-service-api-gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8761/eureka/
+
+  affectation:
+    build:
+      context: .
+      dockerfile: ./affectation/Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+      - discovery
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8761/eureka/
+
+  collaborator:
+    build:
+      context: .
+      dockerfile: ./collaborators/Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+      - discovery
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8761/eureka/
+
+  projects:
+    build:
+      context: .
+      dockerfile: ./projects/Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - db
+      - discovery
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8761/eureka/

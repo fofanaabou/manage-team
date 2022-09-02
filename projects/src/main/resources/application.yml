@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url:  jdbc:postgresql://db:5432/project
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    show-sql: false
+  application:
+    name: projects
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+
+eureka:
+  instance:
+    hostname: projects
+  client:
+    service-url:
+      default-zone: http://discovery:8761/eureka/
+
+server:
+  port: 8083

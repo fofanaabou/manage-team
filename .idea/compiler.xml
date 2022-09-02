@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="innova-service-api-gateway" />
+        <module name="discovery-server" />
+      </profile>
+      <profile name="Annotation profile for staffing" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.0.Final/mapstruct-processor-1.5.0.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.0.Final/mapstruct-1.5.0.Final.jar" />
+        </processorPath>
+        <module name="collaborators" />
+        <module name="affectation" />
+        <module name="projects" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="affectation" target="11" />
+      <module name="collaborators" target="11" />
+      <module name="discovery-server" target="11" />
+      <module name="innova-service-api-gateway" target="11" />
+      <module name="poc-services-innova" target="11" />
+      <module name="projects" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="affectation" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="collaborators" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="discovery-server" options="-parameters" />
+      <module name="innova-service-api-gateway" options="-parameters" />
+      <module name="poc-services-innova" options="-parameters" />
+      <module name="projects" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+    </option>
+  </component>
+</project>
